@@ -1,0 +1,102 @@
+.container-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+h1 {
+  font-weight: 700;
+  font-size: 50px;
+  color: rgb(17, 207, 160);
+}
+
+.task {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.288);
+  padding: 10px 10px 10px 10px;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.466);
+  height: 80px;
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .perfil {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .datos {
+    border-left: 2px solid rgba(128, 128, 128, 0.377);
+    padding-left: 10px;
+    flex: 1;
+  }
+  h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.726);
+  }
+  button {
+    margin: 0px;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    border: 1px solid grey;
+    background-color: grey;
+    cursor: pointer;
+    border-radius: 50%;
+    color: white;
+    width: 28px;
+    height: 28px;
+    padding: 0; /* Asegúrate de que no haya padding extra */
+    box-sizing: border-box; /* Para que el borde no sume al tamaño */
+    .svgw {
+        display: block;
+    }
+    &:hover {
+      background-color: rgb(200, 0, 0);
+      border: 1px solid rgb(200, 0, 0);
+    }
+  }
+  
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 700px;
+
+  input {
+    padding: 10px 0px 10px 40px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.466);
+    font-size: 30px;
+    font-weight: 200;
+  }
+  button {
+    margin-left: 0px;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(40, 197, 158);
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(44, 133, 109, 0.877);
+    }
+  }
+}
