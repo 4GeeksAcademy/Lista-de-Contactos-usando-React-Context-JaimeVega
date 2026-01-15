@@ -18,7 +18,7 @@ h1 {
   border-radius: 10px;
   margin-bottom: 10px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.466);
-  height: 80px;
+  /* height: 80px; */
   width: 700px;
   display: flex;
   justify-content: space-between;
@@ -31,17 +31,22 @@ h1 {
     flex: 1;
   }
   img {
-    width: 50px;
-    height: 50px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
   }
   .datos {
     border-left: 2px solid rgba(128, 128, 128, 0.377);
     padding-left: 10px;
+    display: flex;
+    flex-direction: column;
     flex: 1;
+    span{
+      display: block;
+    }
   }
   h2 {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.726);
   }
@@ -50,8 +55,8 @@ h1 {
     display: flex;
     align-items: center; 
     justify-content: center; 
-    border: 1px solid grey;
-    background-color: grey;
+    border: none;
+    background: none;
     cursor: pointer;
     border-radius: 50%;
     color: white;
@@ -59,12 +64,20 @@ h1 {
     height: 28px;
     padding: 0; /* Asegúrate de que no haya padding extra */
     box-sizing: border-box; /* Para que el borde no sume al tamaño */
+    transition: background-color 0.3s ease;
     .svgw {
         display: block;
+        color: black;
+        transition: all 0.3s ease;
     }
     &:hover {
       background-color: rgb(200, 0, 0);
-      border: 1px solid rgb(200, 0, 0);
+      transform: scale(1.1);
+      /* border: 1px solid rgb(200, 0, 0); */
+      .svgw {
+        color: white;
+        /* transform: scale(1.1); */
+    }
     }
   }
   

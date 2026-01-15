@@ -9,40 +9,41 @@ export function CreateContact() {
   useEffect(() => {
     console.log("El store se actualizó realmente:", store);
       }, [store]);
-  const [list, setList] = useState([
-    { id: 1, name: "Aubree Grant", mobile: "+56976458934", state: "California" },
-    { id: 2, name: "Daniela Deininger", mobile: "+56976458934", state: "New York" },
-  ]);
-  const [inputValue, setInputValue] = useState(["", "", ""]);
+  const [inputValue, setInputValue] = useState(["", "", "","",""]);
  
   function onClick(e) {
     e.preventDefault();
-    let newList = [...list];
     let newInputValue = [...inputValue];
-    let position = newList.length;
     let inputValuesClean = newInputValue.map((value) =>
       value.trim().replace(/\s+/g, " ")
     );
     let verifyInput = inputValuesClean.filter((value) => value != "");
-    if (verifyInput.length === 3) {
-      /* newList[position] = {
-        id: position + 1,
-        name: inputValuesClean[0],
-        mobile: inputValuesClean[1],
-        state: inputValuesClean[2],
-      }; */
-      dispatch({
-                  type: "add_contact", 
-                  payload: {
-                      id: store.contact.length + 1,
-                      name: inputValuesClean[0],
-                      mobile: inputValuesClean[1],
-                      state: inputValuesClean[2],
-                    }
-                })
-      setList(newList);
-      setInputValue(["", "", ""]);
+    if (verifyInput.length === 5) {
+      let newContact = {
+              "name": `${inputValuesClean[0]} ${inputValuesClean[1]}`,
+              "phone": inputValuesClean[2],
+              "email": inputValuesClean[3],
+              "address": inputValuesClean[4],
+            }
+      fetch('https://playground.4geeks.com/contact/agendas/Drokkko/contacts', {
+				method: "POST",
+				body: JSON.stringify(newContact),
+				headers: {
+					"Content-Type": "application/json"
+				}
+				})
+      .then(response => {
+        console.log(response.ok);
+        return response.json();
+      })
+      .then(data => console.log(data)
+      )
+    
+      .catch(error => console.log(error));
+      setInputValue(["", "", "","",""]);
     }
+    else {alert('Te falta un datos para crear un contacto')}
+    
   }
   function handleChange(e, n) {
     let newInputValue = [...inputValue];
@@ -55,26 +56,40 @@ export function CreateContact() {
       <form onSubmit={onClick}>
         <input
           type="text"
-          placeholder="Contact Name"
+          placeholder="Name"
           name="name"
           value={inputValue[0]}
           onChange={(e) => handleChange(e, 0)}
         />
         <input
           type="text"
-          placeholder="Mobile"
-          name="mobile"
+          placeholder="Last Name"
+          name="lastName"
           value={inputValue[1]}
           onChange={(e) => handleChange(e, 1)}
         />
         <input
           type="text"
-          placeholder="State"
-          name="state"
+          placeholder="Email"
+          name="Email"
           value={inputValue[2]}
           onChange={(e) => handleChange(e, 2)}
         />
-        <button>Add Contact</button>
+        <input
+          type="text"
+          placeholder="Phone"
+          name="Phone"
+          value={inputValue[3]}
+          onChange={(e) => handleChange(e, 3)}
+        />
+        <input
+          type="text"
+          placeholder="Address"
+          name="Address"
+          value={inputValue[4]}
+          onChange={(e) => handleChange(e, 4)}
+        />
+        <button>Add New Contact</button>
       </form>
     </div>
   );
