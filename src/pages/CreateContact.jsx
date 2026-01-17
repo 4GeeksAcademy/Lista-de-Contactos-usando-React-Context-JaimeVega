@@ -12,16 +12,13 @@ export function CreateContact() {
 
   const { store, dispatch } = useGlobalReducerContact()
 useEffect(() => {
-  console.log("Buscando el ID:", id); // ¿Es 39?
-    console.log("Contactos en store:", store.contact);
     if (origen === "edit" && id && store.contact) {
-      // Usamos .find para obtener el objeto directamente
       const contactToEdit = store.contact.find((c) => String(c.id) === String(id));
 
       if (contactToEdit) {
         const nameParts = contactToEdit.name.split(" ");
         const firstName = nameParts[0] || "";
-        const lastName = nameParts.slice(1).join(" ") || ""; // Por si tiene varios apellidos
+        const lastName = nameParts[1] || "";
 
         setInputValue([
           firstName,

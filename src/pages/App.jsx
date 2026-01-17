@@ -6,8 +6,6 @@ import "/src/App.css";
 
 export function App() {
   const navigate = useNavigate();
-  /* const [searchParams] = useSearchParams(); */
- /*  const origen = searchParams.get("origen") */
   const { store, dispatch } = useGlobalReducerContact()
   useEffect(() => {
       console.log("El store se actualizó realmente:", store);
