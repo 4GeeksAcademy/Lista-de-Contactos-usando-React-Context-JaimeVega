@@ -1,15 +1,40 @@
 import { useState, useEffect } from "react";
 import useGlobalReducerContact from "../hooks/useGlobalReducerContact"; 
+import { Navigate, useSearchParams, useNavigate } from "react-router-dom";
 import "/src/App.css";
 
 
 export function CreateContact() {
+  const [inputValue, setInputValue] = useState(["", "", "","",""]);
+  const [searchParams] = useSearchParams();
+  const origen = searchParams.get("origen"); 
+  const id = searchParams.get("id");
 
   const { store, dispatch } = useGlobalReducerContact()
-  useEffect(() => {
-    console.log("El store se actualizó realmente:", store);
-      }, [store]);
-  const [inputValue, setInputValue] = useState(["", "", "","",""]);
+useEffect(() => {
+  console.log("Buscando el ID:", id); // ¿Es 39?
+    console.log("Contactos en store:", store.contact);
+    if (origen === "edit" && id && store.contact) {
+      // Usamos .find para obtener el objeto directamente
+      const contactToEdit = store.contact.find((c) => String(c.id) === String(id));
+
+      if (contactToEdit) {
+        const nameParts = contactToEdit.name.split(" ");
+        const firstName = nameParts[0] || "";
+        const lastName = nameParts.slice(1).join(" ") || ""; // Por si tiene varios apellidos
+
+        setInputValue([
+          firstName,
+          lastName,
+          contactToEdit.phone,
+          contactToEdit.email,
+          contactToEdit.address
+        ]);
+      }
+    }
+  }, [origen, id, store.contact]);
+
+  
  
   function onClick(e) {
     e.preventDefault();
@@ -25,22 +50,42 @@ export function CreateContact() {
               "email": inputValuesClean[3],
               "address": inputValuesClean[4],
             }
-      fetch('https://playground.4geeks.com/contact/agendas/Drokkko/contacts', {
+      if (origen === "edit") {
+        fetch(`https://playground.4geeks.com/contact/agendas/Drokkko/contacts/${id}`, {
+				method: "PUT",
+				body: JSON.stringify(newContact),
+				headers: {
+					"Content-Type": "application/json"
+				}
+				})
+        .then(response => {
+          console.log(response.ok);
+          return response.json();
+        })
+        .then(data => console.log(data)
+        )
+      
+        .catch(error => console.log(error));
+        setInputValue(["", "", "","",""]);
+      }
+      else {
+        fetch('https://playground.4geeks.com/contact/agendas/Drokkko/contacts', {
 				method: "POST",
 				body: JSON.stringify(newContact),
 				headers: {
 					"Content-Type": "application/json"
 				}
 				})
-      .then(response => {
-        console.log(response.ok);
-        return response.json();
-      })
-      .then(data => console.log(data)
-      )
-    
-      .catch(error => console.log(error));
-      setInputValue(["", "", "","",""]);
+        .then(response => {
+          console.log(response.ok);
+          return response.json();
+        })
+        .then(data => console.log(data)
+        )
+      
+        .catch(error => console.log(error));
+        setInputValue(["", "", "","",""]);
+      }
     }
     else {alert('Te falta un datos para crear un contacto')}
     
@@ -51,8 +96,11 @@ export function CreateContact() {
     setInputValue(newInputValue);
   }
 
+ 
+
   return (
     <div className="container-list">
+      <h1>{origen === "edit" ? `Editando contacto ${id}` : "Nuevo Contacto"}</h1>
       <form onSubmit={onClick}>
         <input
           type="text"
@@ -89,7 +137,7 @@ export function CreateContact() {
           value={inputValue[4]}
           onChange={(e) => handleChange(e, 4)}
         />
-        <button>Add New Contact</button>
+        <button>{origen === "edit" ? `Edit Contact` : "Add New Contact"}</button>
       </form>
     </div>
   );

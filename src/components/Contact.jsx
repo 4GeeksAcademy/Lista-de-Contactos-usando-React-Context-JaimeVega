@@ -51,7 +51,24 @@ export function Contact(props) {
             </span>
         </div>
       </div>
-      <button onClick={() => props.onClick(props.id)}>
+      <button onClick={() => props.onClickEdit(props.id)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={24}
+            height={24}
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            className="icon icon-tabler icons-tabler-outline icon-tabler-pencil svg_edite"
+            
+          >
+            <path stroke="none" d="M0 0h24v24H0z" />
+            <path d="M4 20h4L18.5 9.5a2.828 2.828 0 1 0-4-4L4 16v4M13.5 6.5l4 4" />
+          </svg>
+      </button>
+      <button onClick={() => props.onClickDelete(props.id)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={24}
@@ -61,7 +78,7 @@ export function Contact(props) {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          className="icon icon-tabler icons-tabler-outline icon-tabler-trash svgw "
+          className="icon icon-tabler icons-tabler-outline icon-tabler-trash svg_delete "
         >
           <path stroke="none" d="M0 0h24v24H0z" />
           <path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
